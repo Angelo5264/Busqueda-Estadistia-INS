@@ -12,8 +12,12 @@
 Crear las clases principales:
 - Usuario
 - PruebaMolecular
+[] invesstigar que tiene una prueba molecular 
+---
+### Instanciar lista
 - Nodo y ListaEnlazada (para manejar los datos).
 - Programar los métodos: insertar, buscar, mostrar, eliminar.
+--- 
 - Cargar datos desde archivos CSV a las estructuras (sin usar ArrayList ni colecciones de Java).
 ---
 ### **Integrante 3 – Formulario de Autenticación (Login y Registro)**
