@@ -22,6 +22,18 @@ public class Usuario {
     }
 
     /**
+     * Guardamos los datos para usarlos en la interfaz grafica
+     * @param DNI  DNI del usuario
+     * @param nombre Nombre del usuario
+     * @param correo Correo del usuario
+     */
+    public Usuario(String DNI, String nombre, String correo){
+        this.DNI=DNI;
+        this.nombre=nombre;
+        this.correo=correo;
+    }
+
+    /**
      *
      * El constructor instancia el objeto usuario con todos sus atributos
      * @param nombre Nombre del usuario
