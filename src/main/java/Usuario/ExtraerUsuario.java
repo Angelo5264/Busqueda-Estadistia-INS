@@ -1,5 +1,6 @@
 package Usuario;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,34 +9,63 @@ public class ExtraerUsuario {
     private FileReader datosUsuario=null;
     private BufferedReader read=null;
 
-    //Extrayendo el ususario de acuerdo a lo que se escriba en el login y contraseña
-    public Usuario extraerUsuario(Usuario usuario) throws IOException {
-        try{
-            datosUsuario=new FileReader("data/Usuarios.txt");
-            if(datosUsuario.ready()){
-                read= new BufferedReader(datosUsuario);
-                String verificador;
-                String DNI = usuario.getDNI(), contraseña = usuario.getContraseña(), nombre, correo;
-                while((verificador=read.readLine()) != null){
-                    if(DNI.equals(verificador)){
-                        if (contraseña == read.readLine()) {
-                            nombre = read.readLine();
-                            correo = read.readLine();
-                            Usuario datosUser = new Usuario(DNI, nombre, correo);
-                            return datosUser;
-                        }
-                    }
-                    return null;
+
+    /**
+     * Usar login, verifica dni y contraseña sea igual al txt
+     * @param dni String DNI
+     * @param contraseña String Contraseña
+     * @param jTextArea JTextArea java.swing
+     * @return Objeto Usuario
+     * @throws IOException
+     */
+    public Usuario extraerUsuario(String dni, String contraseña, JTextArea jTextArea) throws IOException {
+
+        try {
+            datosUsuario = new FileReader("data/Usuarios.txt");
+            read = new BufferedReader(datosUsuario);
+
+            String linea;
+            String[] datos = new String[4];
+            int contador = 0;
+
+            while ((linea = read.readLine()) != null) {
+                linea = linea.trim();
+
+                // Ignorar corchetes
+                if (linea.equals("[") || linea.equals("]") || linea.isEmpty()) {
+                    continue;
                 }
-            }else{
-                IO.println("El archivo no esta listo para ser leido ");
+
+                // Quitar coma final
+                linea = linea.replace(",", "");
+
+                datos[contador] = linea;
+                contador++;
+
+                // Ya leímos los 4 datos
+                if (contador == 4) {
+                    String dniArchivo = datos[0];
+                    String passArchivo = datos[1];
+                    String nombre = datos[2];
+                    String correo = datos[3];
+
+                    // Validar login
+                    if (dniArchivo.equals(dni) && passArchivo.equals(contraseña)) {
+                        return new Usuario(dniArchivo, passArchivo, nombre, correo);
+                    }
+
+                    contador = 0; // resetear para siguiente usuario
+                }
             }
-            return null;
-        }catch (IOException e){
-            IO.println("ERROR: " + e.getMessage());
-            return null;
-        }finally{
-            datosUsuario.close();
+
+        } catch (IOException e) {
+            jTextArea.append("ERROR: " + e.getMessage() + "\n");
+
+        } finally {
+            if (read != null) read.close();
+            if (datosUsuario != null) datosUsuario.close();
         }
+
+        return null;
     }
 }
