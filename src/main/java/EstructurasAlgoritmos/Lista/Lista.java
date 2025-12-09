@@ -1,5 +1,8 @@
 package EstructurasAlgoritmos.Lista;
 
+import ArchivosCSV.RegistroCovid;
+import EstructurasAlgoritmos.Cola.Cola;
+
 public class Lista <T>{
     private Nodo<T> cabeza;
 
@@ -118,4 +121,24 @@ public class Lista <T>{
         sb.append("null");
         return sb.toString();
     }
+    public Cola<RegistroCovid> filtrarResultadoEnCola(String resultado) {
+        Cola<RegistroCovid> cola = new Cola<>();
+        Nodo<T> actual = cabeza;
+
+        while (actual != null) {
+            RegistroCovid r = (RegistroCovid) actual.getDato();
+
+            if (r.getResultado().equalsIgnoreCase(resultado)) {
+                cola.encolar(r);
+            }
+            actual = actual.getNext();
+        }
+
+        return cola;
+    }
+
+
+
+
+
 }
