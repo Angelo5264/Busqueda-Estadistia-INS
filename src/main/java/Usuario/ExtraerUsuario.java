@@ -14,11 +14,10 @@ public class ExtraerUsuario {
      * Usar login, verifica dni y contraseña sea igual al txt
      * @param dni String DNI
      * @param contraseña String Contraseña
-     * @param jTextArea JTextArea java.swing
      * @return Objeto Usuario
      * @throws IOException
      */
-    public Usuario extraerUsuario(String dni, String contraseña, JTextArea jTextArea) throws IOException {
+    public Usuario extraerUsuario(String dni, String contraseña) throws IOException {
 
         try {
             datosUsuario = new FileReader("data/Usuarios.txt");
@@ -51,6 +50,7 @@ public class ExtraerUsuario {
 
                     // Validar login
                     if (dniArchivo.equals(dni) && passArchivo.equals(contraseña)) {
+                        JOptionPane.showConfirmDialog(null,"Acceso concedido.");
                         return new Usuario(dniArchivo, passArchivo, nombre, correo);
                     }
 
@@ -59,7 +59,7 @@ public class ExtraerUsuario {
             }
 
         } catch (IOException e) {
-            jTextArea.append("ERROR: " + e.getMessage() + "\n");
+            IO.println("ERROR: " + e.getMessage() + "\n");
 
         } finally {
             if (read != null) read.close();
