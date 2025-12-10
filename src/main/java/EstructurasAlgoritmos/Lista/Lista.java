@@ -3,7 +3,9 @@ package EstructurasAlgoritmos.Lista;
 import ArchivosCSV.RegistroCovid;
 import EstructurasAlgoritmos.Cola.Cola;
 
-public class Lista <T>{
+import java.util.Iterator;
+
+public class Lista <T> implements Iterable<T> {
     private Nodo<T> cabeza;
 
     /**
@@ -121,6 +123,58 @@ public class Lista <T>{
         sb.append("null");
         return sb.toString();
     }
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            Nodo<T> actual = cabeza;
+
+            @Override
+            public boolean hasNext() {
+                return actual != null;
+            }
+
+            @Override
+            public T next() {
+                T dato = actual.getDato();
+                actual = actual.getNext();
+                return dato;
+            }
+        };
+    }
+
+    public Lista<RegistroCovid> filtrarPorCampo(String campo, String valor) {
+        Lista<RegistroCovid> filtrada = new Lista<>();
+
+        for (T item : this) {
+            RegistroCovid r = (RegistroCovid) item;
+
+            boolean coincide = switch (campo.toLowerCase()) {
+                case "fechacorte" -> r.getFechaCorte().equalsIgnoreCase(valor);
+                case "uuid" -> r.getUuid().equalsIgnoreCase(valor);
+                case "fechamuestra" -> r.getFechaMuestra().equalsIgnoreCase(valor);
+                case "edad" -> Integer.toString(r.getEdad()).equals(valor);
+                case "sexo" -> r.getSexo().equalsIgnoreCase(valor);
+                case "institucion" -> r.getInstitucion().equalsIgnoreCase(valor);
+                case "ubigeo" -> r.getUbigeo().equalsIgnoreCase(valor);
+                case "departamentopaciente" -> r.getDepartamentoPaciente().equalsIgnoreCase(valor);
+                case "provinciapaciente" -> r.getProvinciaPaciente().equalsIgnoreCase(valor);
+                case "distritopaciente" -> r.getDistritoPaciente().equalsIgnoreCase(valor);
+                case "departamentomuestra" -> r.getDepartamentoMuestra().equalsIgnoreCase(valor);
+                case "provinciamuestra" -> r.getProvinciaMuestra().equalsIgnoreCase(valor);
+                case "distritomuestra" -> r.getDistritoMuestra().equalsIgnoreCase(valor);
+                case "tipomuestra" -> r.getTipoMuestra().equalsIgnoreCase(valor);
+                case "resultado" -> r.getResultado().equalsIgnoreCase(valor);
+                default -> false;
+            };
+
+            if (coincide) {
+                filtrada.insertarFinal(r);
+            }
+        }
+
+        return filtrada;
+    }
+
     public Cola<RegistroCovid> filtrarResultadoEnCola(String resultado) {
         Cola<RegistroCovid> cola = new Cola<>();
         Nodo<T> actual = cabeza;

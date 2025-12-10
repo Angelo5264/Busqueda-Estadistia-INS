@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.Menu.JfrmMenu;
 import Usuario.ExtraerUsuario;
 import Usuario.Usuario;
 
@@ -10,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class JfrmLogin {
-    JPanel mainPanel;
+    public JPanel mainPanel;
     private JLabel lblTitulo;
     private JPanel componenetesPanel;
     private JTextField txtDNI;
@@ -30,7 +31,15 @@ public class JfrmLogin {
                 try {
                     Usuario access=verificar.extraerUsuario(dni,contrasenia);
                     if(access!=null){
-
+                        JfrmMenu menu = new JfrmMenu();
+                        JFrame frame = new JFrame("Menú");
+                        frame.setContentPane(new JfrmMenu().mainPanel);
+                        frame.setMinimumSize(new Dimension(400,300));
+                        frame.pack();
+                        frame.setLocationRelativeTo(null);
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setVisible(true);
+                        SwingUtilities.getWindowAncestor(mainPanel).dispose();
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -50,6 +59,12 @@ public class JfrmLogin {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // solo cierra esa ventana
                 frame.setVisible(true);
                 SwingUtilities.getWindowAncestor(mainPanel).dispose();
+            }
+        });
+        pwdContra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                btnIngresar.doClick();
             }
         });
     }

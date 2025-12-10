@@ -50,7 +50,7 @@ public class ExtraerUsuario {
 
                     // Validar login
                     if (dniArchivo.equals(dni) && passArchivo.equals(contraseña)) {
-                        JOptionPane.showConfirmDialog(null,"Acceso concedido.");
+                        JOptionPane.showMessageDialog(null,"Acceso concedido.");
                         return new Usuario(dniArchivo, passArchivo, nombre, correo);
                     }
 

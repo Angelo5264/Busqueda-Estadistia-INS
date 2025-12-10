@@ -42,18 +42,65 @@ public class RegistroCovid {
         this.resultado = resultado;
     }
 
-    public int getEdad() {
-        return edad;
-    }
-
-    public String getResultado() {
-        return resultado;
+    public String getFechaCorte() {
+        return fechaCorte;
     }
 
     public String getUuid() {
         return uuid;
     }
 
+    public String getFechaMuestra() {
+        return fechaMuestra;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public String getInstitucion() {
+        return institucion;
+    }
+
+    public String getUbigeo() {
+        return ubigeo;
+    }
+
+    public String getDepartamentoPaciente() {
+        return departamentoPaciente;
+    }
+
+    public String getProvinciaPaciente() {
+        return provinciaPaciente;
+    }
+
+    public String getDistritoPaciente() {
+        return distritoPaciente;
+    }
+
+    public String getDepartamentoMuestra() {
+        return departamentoMuestra;
+    }
+
+    public String getProvinciaMuestra() {
+        return provinciaMuestra;
+    }
+
+    public String getDistritoMuestra() {
+        return distritoMuestra;
+    }
+
+    public String getTipoMuestra() {
+        return tipoMuestra;
+    }
+
+    public String getResultado() {
+        return resultado;
+    }
 
     @Override
     public String toString() {

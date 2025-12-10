@@ -17,7 +17,7 @@ public class JfrmRegistro {
     private JTextField txtNombres;
     private JTextField txtCorreo;
     private JButton btnRegistro;
-    private JButton btnRegistrar;
+    private JButton btnRegresar;
 
     public JfrmRegistro() {
         btnRegistro.addActionListener(new ActionListener() {
@@ -31,12 +31,16 @@ public class JfrmRegistro {
                 CrearUsuario crearUsuario = new CrearUsuario();
                 try {
                     crearUsuario.crearUsuario(newUser);
+                    txtDNI.setText("");
+                    txtContra.setText("");
+                    txtNombres.setText("");
+                    txtCorreo.setText("");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
         });
-        btnRegistrar.addActionListener(new ActionListener() {
+        btnRegresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 SwingUtilities.getWindowAncestor(mainPanel).dispose();
@@ -50,6 +54,12 @@ public class JfrmRegistro {
                 frameLogin.setLocationRelativeTo(null);
                 frameLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frameLogin.setVisible(true);
+            }
+        });
+        txtCorreo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                btnRegistro.doClick();
             }
         });
     }

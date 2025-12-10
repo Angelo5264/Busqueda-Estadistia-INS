@@ -1,5 +1,6 @@
 package Usuario;
 
+import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,6 +27,7 @@ public class CrearUsuario {
                               +usuario.getCorreo()+"\n"         //Correo
                               +"]"
               );
+            JOptionPane.showMessageDialog(null,"Usuario registrado");
         }catch (IOException e){
             IO.println("ERROR: " + e.getMessage());
 
